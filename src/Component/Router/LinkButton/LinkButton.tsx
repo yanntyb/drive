@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-native";
-import { change } from "../../AppBar/appBarSlice";
+import { changeTitle } from "../../AppBar/appBarSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -15,7 +15,7 @@ export const LinkButton: React.FunctionComponent<Props> = (props: Props) => {
     <Link
       to={props.path}
       onPress={() => {
-        dispatch(change(props.title));
+        dispatch(changeTitle(props.title));
       }}
     >
       {props.children}

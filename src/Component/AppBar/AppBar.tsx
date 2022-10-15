@@ -3,13 +3,16 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { getTitle } from "./appBarSlice";
-import { useSelector } from "react-redux";
+import { getTitle, doNotDisplayThisTitle } from "./appBarSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { LinkButton } from "../Router/LinkButton/LinkButton";
 
 export default function MenuAppBar() {
   const title = useSelector(getTitle);
+  const dispatch = useDispatch();
+
+  dispatch(doNotDisplayThisTitle("accueil"));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -19,8 +22,8 @@ export default function MenuAppBar() {
             {title}
           </Typography>
 
-          <LinkButton path={"/"} title={"Menu"}>
-            <Button color="inherit">Menu</Button>
+          <LinkButton path={"/"} title={"accueil"}>
+            <Button color="inherit">Accueil</Button>
           </LinkButton>
         </Toolbar>
       </AppBar>

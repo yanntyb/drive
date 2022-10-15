@@ -3,24 +3,47 @@ import type { RootState } from "../../store";
 
 interface AppBarState {
   title: string;
+  noDisplayedTitle: Array<string>;
 }
 
 const initialState: AppBarState = {
-  title: "Menu",
+  title: "",
+  noDisplayedTitle: [],
+};
+
+const dontDisplayTitle: Array<string> = ["accueil"];
+
+const needToBeDisplayed = (title: string) => {
+  return !dontDisplayTitle.includes(title.toLowerCase());
+};
+
+const firstLetterUppercase = (title: string) => {
+  return title.charAt(0).toUpperCase() + title.slice(1);
 };
 
 export const appBarSlice = createSlice({
   name: "title",
   initialState: initialState,
   reducers: {
-    change: (state, action) => {
+    changeTitle: (state, action) => {
       let title = action.payload;
-      state.title = title.charAt(0).toUpperCase() + title.slice(1);
+      needToBeDisplayed(title)
+        ? (state.title = firstLetterUppercase(title))
+        : (state.title = "");
+    },
+    doNotDisplayThisTitle: (state, action) => {
+      let title = action.payload;
+      if (needToBeDisplayed(title)) {
+        state.noDisplayedTitle = [
+          ...state.noDisplayedTitle,
+          title.toLowerCase(),
+        ];
+      }
     },
   },
 });
 
-export const { change } = appBarSlice.actions;
+export const { changeTitle, doNotDisplayThisTitle } = appBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const getTitle = (state: RootState) => state.title.title;
