@@ -4,6 +4,7 @@ import { NativeRouter, Route, Routes } from "react-router-native";
 import { Router } from "./Component/Router/Router";
 import { Layout } from "./Component/Layout/Layout";
 import { View } from "react-native";
+import { Authentication } from "./Component/User/Authentication/Authentication";
 
 export const AppContent = () => {
   return (
@@ -11,9 +12,8 @@ export const AppContent = () => {
       <View>
         <Provider store={store}>
           <Layout>
-            <Routes>
-              <Route index path="/" element={<Router />} />
-            </Routes>
+            <Route path="/" element={<Router />} />
+            <Route path="/authentication" element={<Authentication />} />
           </Layout>
         </Provider>
       </View>

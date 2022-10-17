@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-native";
-import { changeTitle } from "../../AppBar/appBarSlice";
+import { changeTitle } from "../../Layout/AppBar/appBarSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {

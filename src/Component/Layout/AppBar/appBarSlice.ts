@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
+import type { RootState } from "../../../store";
 
 interface AppBarState {
   title: string;
@@ -45,7 +45,6 @@ export const appBarSlice = createSlice({
 
 export const { changeTitle, doNotDisplayThisTitle } = appBarSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
 export const getTitle = (state: RootState) => state.title.title;
 
 export default appBarSlice.reducer;
