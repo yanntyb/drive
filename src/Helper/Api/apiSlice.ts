@@ -12,7 +12,8 @@ interface ApiState {
 }
 
 const initialState: ApiState = {
-  baseUrl: "https://local.drive.api/api",
+  // baseUrl: "http://172.20.10.2/api",
+  baseUrl: "http://local.drive.api/api",
   urls: {
     API_LOGIN: "/user/login",
   },

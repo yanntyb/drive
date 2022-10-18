@@ -1,5 +1,5 @@
 import React from "react";
-import MenuAppBar from "./AppBar/AppBar";
+import { MenuAppBar } from "./AppBar/AppBar";
 import { Navigate, Routes, useLocation } from "react-router-native";
 import { useSelector } from "react-redux";
 import { isAuthenticated } from "../User/Authentication/authenticationSlice";
@@ -15,7 +15,7 @@ export const Layout: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <>
-      <MenuAppBar />
+      <MenuAppBar authenticated={authenticated} />
       <Routes>{props.children}</Routes>
       {!authenticated && location.pathname !== "/authentication" && (
         <Navigate to="/authentication" />

@@ -1,10 +1,5 @@
 import React, { useState } from "react";
 import { Text, TextInput, TextInputProps } from "@react-native-material/core";
-import { hideString } from "../../../Helper/StringHelper";
-import {
-  NativeSyntheticEvent,
-  TextInputTextInputEventData,
-} from "react-native";
 
 interface IOnChangeText {
   (text: string): void;
@@ -14,6 +9,7 @@ interface Props extends TextInputProps {
   label?: string;
   password?: boolean;
   onChangeText: IOnChangeText;
+  error: Array<string> | false;
 }
 
 export const Input: React.FunctionComponent<Props> = (props: Props) => {
@@ -25,6 +21,7 @@ export const Input: React.FunctionComponent<Props> = (props: Props) => {
         textContentType="password"
         onChangeText={props.onChangeText}
       />
+      {props.error && <Text>{props.error[0]}</Text>}
     </>
   );
 };

@@ -5,9 +5,7 @@ import { Text } from "react-native";
 export const Router = () => {
   return (
     <>
-      <LinkButton path={"/test"} title={"drive"}>
-        <Text>Drive</Text>
-      </LinkButton>
+      <Text>Drive</Text>
     </>
   );
 };
