@@ -5,6 +5,7 @@ import { Router } from "./Component/Router/Router";
 import { Layout } from "./Component/Layout/Layout";
 import { View } from "react-native";
 import { Authentication } from "./Component/User/Authentication/Authentication";
+import { Profile } from "./Component/Pages/Profile";
 
 export const AppContent = () => {
   return (
@@ -14,6 +15,7 @@ export const AppContent = () => {
           <Layout>
             <Route path="/" element={<Router />} />
             <Route path="/authentication" element={<Authentication />} />
+            <Route path="/profile" element={<Profile />} />
           </Layout>
         </Provider>
       </View>

@@ -12,6 +12,8 @@ interface Props {
   variant?: "outlined" | "text" | "contained" | undefined;
   compact?: boolean;
   color?: Color;
+  before?: React.ReactNode;
+  loading?: boolean;
 }
 
 const initialProps: Props = {
@@ -30,6 +32,8 @@ export const Button: React.FunctionComponent<Props> = (props: Props) => {
       onPress={props.onPress}
       compact={props.compact}
       color={props.color}
+      leading={props.before}
+      loading={props.loading}
     />
   );
 };

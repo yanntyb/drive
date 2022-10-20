@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-native";
+import { Link, Navigate } from "react-router-native";
 import { changeTitle } from "../../Layout/AppBar/appBarSlice";
 import { useDispatch } from "react-redux";
 
@@ -23,20 +23,9 @@ const initialProps: Props = {
 
 export const LinkButton: React.FunctionComponent<Props> = (props: Props) => {
   const dispatch = useDispatch();
-  const handlePress = () => {
-    if (props.onPress !== undefined) {
-      props.onPress();
-      dispatch(changeTitle(props.title));
-    }
-  };
 
   return (
-    <Link
-      to={props.path}
-      onPress={() => {
-        handlePress();
-      }}
-    >
+    <Link to={props.path} onPress={() => dispatch(changeTitle(props.title))}>
       {props.children}
     </Link>
   );

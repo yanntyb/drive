@@ -51,7 +51,7 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
+    if (isLoading) return;
     const request = new XMLHttpRequest();
     request.onreadystatechange = (e) => {
       if (request.readyState !== 4) {
@@ -72,6 +72,7 @@ export const LoginForm = () => {
     request.open("POST", loginUrl);
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify({ email: email, password: password }));
+    setIsLoading(true);
   };
 
   return (
@@ -87,8 +88,14 @@ export const LoginForm = () => {
         password
         onChangeText={handleChangePassword}
       />
-      <Button title="Connection" onPress={handleSubmit} />
-      {isLoading && <Text>Chargement</Text>}
+      <>
+        <Button
+          loading={isLoading}
+          title={isLoading ? "Chargement" : "Connection"}
+          onPress={handleSubmit}
+        />
+      </>
+
       {redirectToRouter && <Navigate to="/" />}
     </Flex>
   );

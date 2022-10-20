@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getTitle, doNotDisplayThisTitle } from "./appBarSlice";
+import { getTitle, doNotDisplayThisTitle, changeTitle } from "./appBarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppBar } from "@react-native-material/core";
 import { useEffect } from "react";
@@ -15,8 +15,8 @@ export const MenuAppBar: React.FunctionComponent<Props> = (props: Props) => {
   const title = useSelector(getTitle);
   const dispatch = useDispatch();
   const handleLogout = () => {
-    console.log("lougout");
     dispatch(logout());
+    dispatch(changeTitle(""));
   };
 
   useEffect(() => {
@@ -28,15 +28,13 @@ export const MenuAppBar: React.FunctionComponent<Props> = (props: Props) => {
       title={title}
       trailing={
         props.authenticated && (
-          <LinkButton path="/" title="Logout">
-            <Button
-              color="white"
-              compact
-              variant="text"
-              title="Logout"
-              onPress={() => handleLogout()}
-            />
-          </LinkButton>
+          <Button
+            color="white"
+            compact
+            variant="text"
+            title="Logout"
+            onPress={() => handleLogout()}
+          />
         )
       }
     ></AppBar>

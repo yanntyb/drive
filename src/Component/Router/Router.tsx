@@ -1,11 +1,14 @@
 import React from "react";
 import { LinkButton } from "./LinkButton/LinkButton";
-import { Text } from "react-native";
+import { Button } from "../Form/Button/Button";
+import { Text } from "@react-native-material/core";
 
 export const Router = () => {
   return (
     <>
-      <Text>Drive</Text>
+      <LinkButton path="/profile" title="profile">
+        <Text>Profile</Text>
+      </LinkButton>
     </>
   );
 };
