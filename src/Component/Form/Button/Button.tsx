@@ -14,6 +14,7 @@ interface Props {
   color?: Color;
   before?: React.ReactNode;
   loading?: boolean;
+  disabled?: boolean;
 }
 
 const initialProps: Props = {
@@ -22,11 +23,13 @@ const initialProps: Props = {
   variant: "outlined",
   compact: false,
   color: "primary",
+  disabled: false,
 };
 
 export const Button: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <MuiButton
+      disabled={props.disabled}
       variant={props.variant}
       title={props.title}
       onPress={props.onPress}

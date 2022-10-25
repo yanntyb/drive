@@ -17,7 +17,7 @@ interface IErrorLogin {
   password: Array<string> | false;
 }
 
-interface ISuccessLogin {
+interface ISuccessLogin extends Object {
   access_token: string;
   token_type: string;
 }
@@ -31,14 +31,15 @@ interface Props {
   toggleForm: () => void;
 }
 
-export const LoginForm: React.FunctionComponent<Props> = (props: Props) => {
+export const RegisterForm: React.FunctionComponent<Props> = (props: Props) => {
   const [error, setError] = useObjectState(initialErrorState);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("test");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [redirectToRouter, setRedirectToRouter] = useState(false);
-  const loginUrl = useSelector((state: RootState) =>
-    getApiUrl(state, "API_LOGIN")
+  const registerUrl = useSelector((state: RootState) =>
+    getApiUrl(state, "API_REGISTER")
   );
   const dispatch = useDispatch();
 
@@ -50,28 +51,61 @@ export const LoginForm: React.FunctionComponent<Props> = (props: Props) => {
     resetError();
     setEmail(text);
   };
+
   const handleChangePassword = (text: string) => {
     resetError();
     setPassword(text.toLowerCase());
   };
 
+  const handleChangePasswordConfirm = (text: string) => {
+    resetError();
+    setPasswordConfirm(text.toLowerCase());
+  };
+
+  const passwordMatch = () => {
+    if (password.length === 0) return false;
+    return passwordConfirm === password;
+  };
+
+  // const handleSubmitOld = async () => {
+  //   if (isLoading) return;
+  //   const request = new XMLHttpRequest();
+  //   request.onreadystatechange = (e) => {
+  //     if (request.readyState !== 4) {
+  //       return;
+  //     }
+  //     setIsLoading(false);
+  //     if (request.status === 200) {
+  //       const response: ISuccessLogin = JSON.parse(request.responseText);
+  //       dispatch(setToken(response.access_token));
+  //       setRedirectToRouter(true);
+  //     } else {
+  //       console.warn(request.responseText);
+  //
+  //       setError(JSON.parse(request.responseText));
+  //     }
+  //   };
+  //
+  //   request.open("POST", registerUrl);
+  //   request.setRequestHeader("Content-Type", "application/json");
+  //   request.send(JSON.stringify({ email: email, password: password }));
+  //   setIsLoading(true);
+  // };
+
   const handleSubmit = async () => {
     Request({
+      callbackError(response: ISuccessLogin): void {
+        // dispatch(setToken(response.access_token));
+        // setRedirectToRouter(true);
+      },
       callbackSuccess(response: ISuccessLogin): void {
-        console.warn(response);
         dispatch(setToken(response.access_token));
         setRedirectToRouter(true);
-      },
-      beforeSend: () => {
-        setIsLoading(true);
-      },
-      afterSend: () => {
-        setIsLoading(false);
       },
       data: { email: email, password: password },
       header: [{ header: "Content-Type", value: "application/json" }],
       methode: "POST",
-      url: loginUrl,
+      url: registerUrl,
     });
   };
 
@@ -88,16 +122,29 @@ export const LoginForm: React.FunctionComponent<Props> = (props: Props) => {
         password
         onChangeText={handleChangePassword}
       />
+      <Input
+        error={error.password}
+        label="Confirmation du mot de passe"
+        password
+        onChangeText={handleChangePasswordConfirm}
+      />
       <>
         <Button
+          disabled={!passwordMatch()}
           loading={isLoading}
-          title={isLoading ? "Chargement" : "Connexion"}
+          title={
+            isLoading
+              ? "Chargement"
+              : passwordMatch()
+              ? "Inscription"
+              : " ( les mots de passe ne correspondent pas )"
+          }
           onPress={handleSubmit}
         />
         <Button
           onPress={props.toggleForm}
           variant="text"
-          title="Pas encore de compte ? Inscrit toi"
+          title="Deja un compte ? Connecte toi"
         />
       </>
 

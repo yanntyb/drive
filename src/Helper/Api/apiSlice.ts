@@ -11,11 +11,14 @@ interface ApiState {
   urls: IUrl;
 }
 
+interface Route {}
+
 const initialState: ApiState = {
   // baseUrl: "http://172.20.10.2/api",
-  baseUrl: "https://yanndrive.loca.lt/api",
+  baseUrl: "https://shaggy-liger-40.loca.lt/api",
   urls: {
     API_LOGIN: "/user/login",
+    API_REGISTER: "/user/register",
   },
 };
 
